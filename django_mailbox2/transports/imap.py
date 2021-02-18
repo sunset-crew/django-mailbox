@@ -32,7 +32,7 @@ class ImapTransport(EmailTransport):
             settings, "DJANGO_MAILBOX_INTEGRATION_TESTING_SUBJECT", None
         )
         self.delete_message_from_server = getattr(
-            settings, "DJANGO_MAILBOX_DELETE_MESSAGE_FROM_SERVER", True
+            settings, "DJANGO_MAILBOX2_DELETE_MESSAGE_FROM_SERVER", True
         )
         self.hostname = hostname
         self.port = port
@@ -67,6 +67,13 @@ class ImapTransport(EmailTransport):
         # ids; we must make sure that it isn't an empty string before
         # splitting into individual UIDs.
         if message_id_string:
+            switch_around = getattr(
+                settings, "DJANGO_MAILBOX2_LOAD_NEWEST_FIRST", False
+            )
+            if switch_around:
+                message_list = message_id_string.decode().split(" ")
+                message_list.reverse()
+                return message_list
             return message_id_string.decode().split(" ")
         return []
 
