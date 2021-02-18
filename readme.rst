@@ -38,6 +38,16 @@ Usage
 - Test status available on
   `Travis-CI <https://travis-ci.org/coddingtonbear/django-mailbox>`_.
 
+
+
+Added Features
+--------------
+
+1. DJANGO_MAILBOX_DELETE_MESSAGE_FROM_SERVER = False
+
+2. DJANGO_MAILBOX2_LOAD_NEWEST_FIRST = False
+
+
 Development
 -----------
 
