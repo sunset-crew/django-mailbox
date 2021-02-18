@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - adds the setting to reverse the order of message processing
 - adds already_loaded limiter that stops getmail after max reached
 
+### Changed
+- fixes difference between old mailbox and newer settings var names
+
 ## [0.1.3] - 2021-02-08
 ### Added
 - adds updated module name

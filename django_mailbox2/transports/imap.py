@@ -32,7 +32,7 @@ class ImapTransport(EmailTransport):
             settings, "DJANGO_MAILBOX_INTEGRATION_TESTING_SUBJECT", None
         )
         self.delete_message_from_server = getattr(
-            settings, "DJANGO_MAILBOX_DELETE_MESSAGE_FROM_SERVER", True
+            settings, "DJANGO_MAILBOX2_DELETE_MESSAGE_FROM_SERVER", True
         )
         self.hostname = hostname
         self.port = port
