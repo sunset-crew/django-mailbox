@@ -16,7 +16,7 @@ import logging
 import mimetypes
 import os.path
 
-# import sys
+import sys
 import uuid
 from tempfile import NamedTemporaryFile
 
@@ -42,6 +42,19 @@ from django_mailbox2.transports import (
 )
 
 logger = logging.getLogger(__name__)
+
+already_loaded_count = 0
+
+
+def check_already_loaded_count():
+    global already_loaded_count
+    already_loaded_max = getattr(
+        django_settings, "DJANGO_MAILBOX2_ALREADY_LOADED_MAX", 5
+    )
+    already_loaded_count = already_loaded_count + 1
+    if already_loaded_count > already_loaded_max:
+        print("Already Loaded Count Exceeded")
+        sys.exit(0)
 
 
 class MailboxQuerySet(models.QuerySet):
@@ -376,7 +389,12 @@ class Mailbox(models.Model):
             msg.save()
             message = self._get_dehydrated_message(message, msg)
         except django.db.utils.IntegrityError:
-            logger.warning("Already loaded")
+            logger.debug("Already loaded")
+            already_loaded_limiter = getattr(
+                django_settings, "DJANGO_MAILBOX2_ALREADY_LOADED_LIMITER", False
+            )
+            if already_loaded_limiter:
+                check_already_loaded_count()
             return None
 
         try:

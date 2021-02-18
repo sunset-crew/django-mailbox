@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.1.5] - 2021-02-18
 ### Added
 - adds the setting to reverse the order of message processing
+- adds already_loaded limiter that stops getmail after max reached
 
 ## [0.1.3] - 2021-02-08
 ### Added
